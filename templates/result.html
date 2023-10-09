@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    body {
+        background-color: #000;
+        color: #fff;
+        padding: 20px;
+        min-height: 100vh; /* Changed to min-height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow-x: hidden; /* Prevents horizontal scrolling */
+    }
+    .container {
+        max-width: 500px;
+        padding: 0 20px; /* Add some padding on smaller screens */
+    }
+    @media (max-width: 600px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media (min-width: 600px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    button, a {
+        background-color: #00f;
+        color: #fff;
+        border: none;
+        padding: 10px 50px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+    a:hover, button:hover {
+        text-decoration: none;
+        background-color: #000;
+    }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Conversion Result</h1>
+    <div class="content" id="copyContent">
+        {% for line in result.split('\n') %}
+            {% if line.startswith('###') %}
+                <h3 class="title">{{ line.replace('### ', '') }}</h3>
+            {% elif "**" in line %}
+                <p><strong>{{ line.replace("**", "").replace("**", "") }}</strong></p>
+            {% else %}
+                <p>{{ line }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="buttons">
+        <button id="copyButton" class="btn btn-lg btn-primary" data-clipboard-text="{{ request.url_root }}result/{{ result_id }}">Copy Link</button>
+        <span>&nbsp;&nbsp;&nbsp;</span> <!-- Separate the buttons -->
+        <a href="/" class="btn btn-lg btn-primary" id="goBackButton">Go back</a>
+    </div>
+</div>
+<script>
+    var clipboard = new ClipboardJS('#copyButton');
+    clipboard.on('success', function(e) {
+      alert("Copied to clipboard: \n" + e.text);
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
