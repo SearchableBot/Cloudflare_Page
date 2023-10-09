@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Summariser</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .container {
+            max-width: 500px;
+        }
+        #loading {
+            display: none;
+        }
+        a {
+            color: #00f;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">YouTube Summariser</h1>
+        <form method="post" action="/convert" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="youtube_url">Enter a YouTube URL:</label>
+                <input type="text" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://m.youtube.com/watch?v=oj5WuB7v4JM">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Convert</button>
+        </form>
+        <!-- Loading screen -->
+        <div id="loading" class="text-center">
+            <p>Loading...</p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validateForm() {
+            var url = document.getElementById('youtube_url').value;
+            if (url == '') {
+                alert('Please enter a YouTube URL');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
