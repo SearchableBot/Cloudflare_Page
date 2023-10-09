@@ -22,7 +22,7 @@ def convert():
     youtube_url = request.form.get('youtube_url')
 
     if not is_youtube_url(youtube_url):
-        return render_template('index.html', error='Invalid YouTube URL')
+        return render_template('index.html', error='Invalid YouTube Link')
 
     try:
         response = requests.post(API_ENDPOINT, data={'youtube_url': youtube_url})
